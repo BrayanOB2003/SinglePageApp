@@ -73,12 +73,12 @@ let Navbar = {
                             </a>
                         </div>
                         <div class="navbar-end">
-                            <div class="navbar-item">
+                            <div id ="item_n" class="navbar-item">
                                 <div class="buttons">
                                     <a class="button is-primary" href="#/register">
                                         <strong>Sign up</strong>
                                     </a>
-                                    <a id="log_btn" class="button is-primary" href="#/login" >
+                                    <a id="log_In"class="button is-primary" href="#/login" >
                                         
                                     </a>
                                 </div>
@@ -92,18 +92,50 @@ let Navbar = {
     },
 
     after_render : async () => {
-        let btn = document.getElementById('log_btn');
-        
+        let btn = document.getElementById('log_In');
+        let itemN = document.getElementById('item_n');
         if(joined) {
-            btn.innerHTML = '<a id="log_btn" class="button is-primary"><strong>Log Out</strong></a>'
+            let user = document.getElementById('email_input');
+            itemN.innerHTML = 
+            `<div id ="item_n" class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="#/register">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a id="log_btn" class="button is-primary" href="#/login" >
+                        <strong>Log Out ${user.value}</strong>
+                    </a>
+                 </div>
+            </div>`
         } else {
-            btn.innerHTML = '<a id="log_btn" class="button is-primary" href="#/login"><strong>Log In</strong></a>'
+            itemN.innerHTML = 
+            `<div id ="item_n" class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="#/register">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a id="log_btn" class="button is-primary" href="#/login" >
+                        <strong>Log In</strong>
+                    </a>
+                 </div>
+            </div>`
         }
         
         btn.addEventListener('click', () => {
             if(joined) {
+                
                 joined = false;
-                btn.innerHTML = '<a id="log_btn" class="button is-light" href="#/login"><strong>Log In</strong></a>'
+                itemN.innerHTML = 
+                `<div id ="item_n" class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="#/register">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a id="log_btn" class="button is-primary" href="#/login" >
+                            <strong>Log In</strong>
+                        </a>
+                    </div>
+                 </div>`
                 location.href = '#/';
             }
         });
@@ -228,12 +260,12 @@ let Register = {
             let pass        = document.getElementById("pass_input");
             let repeatPass  = document.getElementById("repeat_pass_input");
             if (pass.value != repeatPass.value) {
-                alert (`The passwords dont match`)
+                alert ('Incorrect password')
             } else if (email.value == '' | pass.value == '' | repeatPass == '') {
-                alert (`The fields cannot be empty`)
+                alert ('There are spaces to fill')
             } 
             else {
-                alert(`User with email ${email.value} was successfully submitted!`)
+                alert('User was added')
             }    
         });
     }
@@ -283,7 +315,7 @@ let LogIn = {
             } else {
                 joined = true;
                 let btn = document.getElementById('log_btn');
-                btn.innerHTML = '<a id="log_btn" class="button is-light"><strong>Log out</strong></a>'
+                btn.innerHTML = '<a id="log_btn" class="button is-primary"><strong>Log out</strong></a>'
                 alert(`User entered correctly`);
                 location.href = '#/';
             }
