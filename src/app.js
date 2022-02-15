@@ -79,7 +79,7 @@ let Navbar = {
                                         <strong>Sign up</strong>
                                     </a>
                                     <a id="log_In"class="button is-primary" href="#/login" >
-                                        
+                                        <strong>Log In</strong>
                                     </a>
                                 </div>
                             </div>
@@ -102,11 +102,12 @@ let Navbar = {
                     <a class="button is-primary" href="#/register">
                         <strong>Sign up</strong>
                     </a>
-                    <a id="log_btn" class="button is-primary" href="#/login" >
+                    <a id="log_In" class="button is-primary">
                         <strong>Log Out ${user.value}</strong>
                     </a>
                  </div>
             </div>`
+
         } else {
             itemN.innerHTML = 
             `<div id ="item_n" class="navbar-item">
@@ -114,7 +115,7 @@ let Navbar = {
                     <a class="button is-primary" href="#/register">
                         <strong>Sign up</strong>
                     </a>
-                    <a id="log_btn" class="button is-primary" href="#/login" >
+                    <a id="log_In" class="button is-primary" href="#/login" >
                         <strong>Log In</strong>
                     </a>
                  </div>
@@ -122,8 +123,8 @@ let Navbar = {
         }
         
         btn.addEventListener('click', () => {
+            
             if(joined) {
-                
                 joined = false;
                 itemN.innerHTML = 
                 `<div id ="item_n" class="navbar-item">
@@ -131,12 +132,13 @@ let Navbar = {
                         <a class="button is-primary" href="#/register">
                             <strong>Sign up</strong>
                         </a>
-                        <a id="log_btn" class="button is-primary" href="#/login" >
+                        <a id="log_In" class="button is-primary" href="#/login" >
                             <strong>Log In</strong>
                         </a>
                     </div>
-                 </div>`
-                location.href = '#/';
+                </div>`;
+                location.href = '#/'
+                alert('Spetnazzz');
             }
         });
     }
@@ -204,10 +206,10 @@ let PostShow = {
         let post = await getPost(request.id);
         let btn = document.getElementById('edit_btn');
         btn.addEventListener('click', () => {
-            if(!joined) {
-                alert('You must login to perform this action');
-            } else {
+            if(joined) {
                 location.href = `#/edit/${post.id}`;
+            } else {
+                alert('You must login to perform this action');
             }
         });
     }
@@ -260,12 +262,13 @@ let Register = {
             let pass        = document.getElementById("pass_input");
             let repeatPass  = document.getElementById("repeat_pass_input");
             if (pass.value != repeatPass.value) {
-                alert ('Incorrect password')
+                alert ('Different passwords')
             } else if (email.value == '' | pass.value == '' | repeatPass == '') {
                 alert ('There are spaces to fill')
             } 
             else {
                 alert('User was added')
+                
             }    
         });
     }
@@ -314,8 +317,6 @@ let LogIn = {
                 alert(`There are spaces to fill`);
             } else {
                 joined = true;
-                let btn = document.getElementById('log_btn');
-                btn.innerHTML = '<a id="log_btn" class="button is-primary"><strong>Log out</strong></a>'
                 alert(`User entered correctly`);
                 location.href = '#/';
             }
@@ -352,7 +353,7 @@ let Edit = {
     },
     after_render : async() => {
         document.getElementById('edit_submit_btn').addEventListener('click', () => {
-            alert("this button ain't working");
+            alert("comming soon");
         });
     }
 };
